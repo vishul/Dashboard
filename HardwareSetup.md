@@ -1,3 +1,5 @@
+Notes:
+- Ensure theres is some way to turn the display off at night for good sleep (no lights) and auto turn on in the mornings.
 Options:
 - RasPi + Display (oled)
 - Nixi Tubes for numbers: These look so cool, i'd wanna do some kinda project with them for sure, step counter, clock, 
