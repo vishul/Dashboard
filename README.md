@@ -1,4 +1,6 @@
 # Dashboard
+North Star:
+- Have a dynamic context aware dashboard that automatically keeps updating to show data necessary for decisions i need to make at that timne, based on my calendar + other inputs.
 
 Modules
 - Path:
