@@ -4,6 +4,7 @@ Options:
 - Vacuum Fluorescent Displays (VFDs)
 - Segmented LCDs
 - Eink displays
+- Matrix displays
 
 
 Project ideas:
