@@ -14,9 +14,9 @@ Modules
         - Try pulling from the Insta post of the weather guy
 
 - Todoist: Pull top <n> tasks sorted by closest due date.
-    # Do not show tasks that are too stale, though.
+    >Do not show tasks that are too stale, though.
 - Add calendar widget to show events for the week.
-    # Prefer embedding so we don't need to store auth tokens.
+    >Prefer embedding so we don't need to store auth tokens.
 - Art?
 
 Usage:
