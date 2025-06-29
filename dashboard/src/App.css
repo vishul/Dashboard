@@ -1,3 +1,151 @@
+/* Reset and base styles */
+body, html, #root, .App {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, sans-serif;
+  background: #181818;
+  color: #fff;
+}
+
+/* Main layout: split left/right */
+.App {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Left and right columns */
+.left-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-width: 0;
+  background: #20232a;
+  padding: 24px 16px 24px 24px;
+  box-sizing: border-box;
+  gap: 24px;
+}
+
+.right-column {
+  flex: 1;
+  min-width: 0;
+  height: 100vh;
+  background: #181818;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+}
+
+/* Top row: train and citibike side by side */
+.top-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Widgets in top row */
+.widget {
+  flex: 1;
+  background: #23272f;
+  border-radius: 12px;
+  padding: 20px 16px;
+  box-sizing: border-box;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Todoist widget: big and below top row */
+.todoist-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.todoist-widget {
+  flex: 1;
+  background: #23272f;
+  border-radius: 12px;
+  padding: 24px 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Calendar fills right column */
+.calendar-iframe-container {
+  flex: 1;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+}
+
+.calendar-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #181818;
+  display: block;
+}
+
+/* Responsive: stack train/citibike vertically on small screens */
+@media (max-width: 900px) {
+  .App {
+    flex-direction: column;
+  }
+  .left-column, .right-column {
+    width: 100vw;
+    height: auto;
+    min-height: 0;
+    padding: 12px 4px;
+  }
+  .top-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .widget, .todoist-widget {
+    padding: 12px 6px;
+  }
+  .calendar-iframe-container {
+    min-height: 300px;
+    height: 50vh;
+  }
+}
+
+/* Remove table borders and make tables fill widget width */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #fff;
+  background: none;
+}
+
+th, td {
+  padding: 6px 4px;
+  text-align: left;
+  border: none;
+  background: none;
+  font-size: 1em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Utility: hide scrollbars for calendar iframes if needed */
+.calendar-iframe::-webkit-scrollbar {
+  display: none;
+}
+
 .App {
   text-align: center;
   background: #181818;
@@ -109,7 +257,15 @@
   border-spacing: 0 6px;
 }
 
+.departures-table tr {
+  display: flex;
+  width: 100%;
+}
+
 .departure-cell {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: none;
   background: #23272f;
   color: #fff;
   font-size: 1.1em;
@@ -118,7 +274,12 @@
   border-radius: 6px;
   border: 1px solid #444;
   height: 40px;
-  min-width: 100px;
+  /* Remove min-width and max-width for flexibility */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-sizing: border-box;
+  word-break: break-all;
 }
 
 .train-animation {
@@ -204,6 +365,15 @@
   }
 }
 
+.train-widget,
+.citibike-widget {
+  max-width: 100%;
+  min-width: 0;
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 @media (max-width: 600px) {
   .App-header {
     padding: 4px;
@@ -238,6 +408,18 @@
     font-size: 0.95rem;
     padding: 6px 2px;
   }
+
+  /* Responsive departure cell for mobile */
+  .departure-cell {
+    max-width: 48vw;      /* Each cell can use up to ~1/3 of screen width */
+    min-width: 0;
+    font-size: 0.95em;
+    padding: 6px 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-sizing: border-box;
+  }
 }
 
 @media (max-width: 480px) {
@@ -251,8 +433,192 @@
 
 /* Prevent overflow for departure cells */
 .departure-cell {
-  max-width: 80px;
+  max-width: 70px;         /* Reduce max-width for smaller screens */
+  min-width: 0;            /* Allow shrinking */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  box-sizing: border-box;
+  word-break: break-all;   /* Break long words if needed */
+  font-size: 1em;
+  padding: 6px 2px;
+}
+
+/* On very small screens, further reduce font and width */
+@media (max-width: 400px) {
+  .departure-cell {
+    max-width: 55px;
+    font-size: 0.9em;
+    padding: 4px 1px;
+  }
+}
+
+/* Layout */
+.dashboard-header {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.left-column, .right-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 2%;
+}
+
+.left-column {
+  gap: 2%;
+}
+
+.top-row {
+  display: flex;
+  gap: 2%;
+  min-height: 0;
+  /* Remove or comment out the next two lines: */
+  /* max-height: 180px; */
+  /* height: 180px; */
+  flex: 0 0 auto;
+}
+
+.widget {
+  background: #23272f;
+  padding: 1vw;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  /* Remove or comment out the next line: */
+  /* max-height: 180px; */
+  min-width: 0;
+  flex: 1 1 0;
+  max-width: 50%;
+  box-sizing: border-box;
+}
+
+/* Responsive: stack widgets vertically on small screens */
+@media (max-width: 900px) {
+  .top-row {
+    flex-direction: column;
+    height: auto;
+    max-height: none;
+    gap: 16px;
+  }
+  .widget {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+.todoist-container {
+  flex: 1 1 0;
+  margin-top: 2%;
+  display: flex;
+  min-height: 0;
+  height: 100%;
+}
+
+.todoist-widget {
+  background: #23272f;
+  padding: 1.5vw;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.todoist-iframe-container {
+  position: relative;
+  width: 100%;
+  flex: 1 1 0;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+}
+
+.todoist-iframe {
+  border: solid 1px #444;
+  border-radius: 8px;
+  background: #23272f;
+  /* Remove position: absolute, top, left */
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  /* Add display: block for good measure */
+  display: block;
+}
+
+.right-column {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 0;         /* Remove padding */
+  min-width: 0;
+  min-height: 0;
+}
+
+.right-column-content {
+  background: none;   /* Remove background */
+  border-radius: 0;   /* Remove border radius */
+  box-shadow: none;   /* Remove shadow */
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.calendar-iframe-container {
+  position: relative;
+  width: 100%;
+  flex: 1 1 0;
+  min-height: 0;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.calendar-iframe {
+  border: none;        /* Remove border */
+  border-radius: 0;    /* Remove border radius */
+  background: none;    /* Remove background */
+  width: 100vw;        /* Fill viewport width */
+  height: 100vh;       /* Fill viewport height */
+  min-height: 0;
+  min-width: 0;
+  display: block;
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Ensure all containers fill available space */
+.right-column,
+.right-column-content,
+.calendar-iframe-container,
+.calendar-iframe {
+  height: 100%;
+  min-height: 0;
 }
