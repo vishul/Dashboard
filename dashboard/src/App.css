@@ -217,25 +217,29 @@
     font-size: 0.95rem;
   }
 
+  /* Make tables scrollable on small screens */
   .departures-table,
   .citibike-table {
-    font-size: 0.9rem;
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
-
-  .citibike-table th,
-  .citibike-table td {
-    padding: 6px 2px;
+  .departures-table tr,
+  .citibike-table tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+  .departure-cell,
+  .citibike-table td,
+  .citibike-table th {
+    word-break: break-word;
     font-size: 0.95rem;
-  }
-
-  iframe {
-    min-width: 0;
-    width: 100% !important;
-    height: 300px !important;
+    padding: 6px 2px;
   }
 }
 
-/* Optional: Make tables scrollable on small screens */
 @media (max-width: 480px) {
   .citibike-table,
   .departures-table {
@@ -243,4 +247,12 @@
     overflow-x: auto;
     white-space: nowrap;
   }
+}
+
+/* Prevent overflow for departure cells */
+.departure-cell {
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
