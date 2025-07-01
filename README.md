@@ -25,3 +25,6 @@ Modules
 Usage:
 - Refresh rate: Only needs to refresh in the morning, so every 30 secs from 6–10am on weekdays and 6–11am on weekends.
 - Weekends: I might be using other stations on the weekends; figure out how to plug or simply remove the Citi Bike info on the weekends.
+
+TODOS:
+- Fit the mobile widget well currently train time overflows.
